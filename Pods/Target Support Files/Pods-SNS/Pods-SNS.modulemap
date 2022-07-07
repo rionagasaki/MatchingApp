@@ -1,0 +1,6 @@
+framework module Pods_SNS {
+  umbrella header "Pods-SNS-umbrella.h"
+
+  export *
+  module * { export * }
+}

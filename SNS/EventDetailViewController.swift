@@ -11,8 +11,7 @@ class EventDetailViewController: UIViewController {
     
     
     public var eventPlace:String?
-    public var eventImage: UIImage!
-    public var eventTitle: String!
+    public var cardInfo:CardInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,9 +104,8 @@ class EventDetailViewController: UIViewController {
     @objc func nextScreen(){
         let modalViewController = PeopleNumberViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-//        modalViewController.eventImage = eventImage
-//        modalViewController.eventTitle = eventTitle
-//        modalViewController.eventPlace = eventPlace
+        cardInfo?.place = eventPlace!
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push

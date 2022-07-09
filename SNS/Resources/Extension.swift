@@ -38,19 +38,12 @@ extension UIImage {
     
     
     public static func resize(image: UIImage, width: Double) -> UIImage {
-            
-        
         let aspectScale = image.size.height / image.size.width
-        
-       
         let resizedSize = CGSize(width: width, height: width * Double(aspectScale))
-        
-        
         UIGraphicsBeginImageContext(resizedSize)
         image.draw(in: CGRect(x: 0, y: 0, width: resizedSize.width, height: resizedSize.height))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return resizedImage!
     }
     

@@ -10,7 +10,7 @@ import UIKit
 class MessageTableViewCell: UITableViewCell {
 
     static let identifier = "MessageCell"
-    
+    static var heights:[CGFloat] = []
    
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,16 +26,14 @@ class MessageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(talker)
-        contentView.addSubview(messageView)
-        messageView.addSubview(messageLabel)
-        messageView.addSubview(profileIcon)
-        
+        contentView.addSubview(messageLabel)
+        contentView.addSubview(profileIcon)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        messageView.frame = CGRect(x:0, y:0 , width: contentView.frame.size.width, height:contentView.frame.size.height)
-        profileIcon.frame = CGRect(x: contentView.frame.size.width/30, y:(contentView.frame.size.height/2)-25, width: 50, height:50)
+        MessageTableViewCell.heights = []
+        profileIcon.frame = CGRect(x: contentView.frame.size.width/30, y:(contentView.frame.size.height/2)-15, width: 30, height:30)
         if messageLabel.intrinsicContentSize.width > 150 {
             let height = messageLabel.intrinsicContentSize.width/150
             let size = messageLabel.intrinsicContentSize.width/height
@@ -47,7 +45,7 @@ class MessageTableViewCell: UITableViewCell {
         messageLabel.layer.cornerRadius = 18
         profileIcon.clipsToBounds = true
         profileIcon.layer.cornerRadius = profileIcon.frame.width/2
-        
+        MessageTableViewCell.heights.append(messageLabel.frame.height)
     }
     
     public func configure(with model:Message){
@@ -60,12 +58,6 @@ class MessageTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private let messageView:UIView = {
-       let view = UIView()
-        view.backgroundColor = .darkGray
-        return view
-    }()
     
     public let messageLabel:UILabel = {
        let label = UILabel()

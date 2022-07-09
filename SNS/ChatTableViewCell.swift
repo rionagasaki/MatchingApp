@@ -17,7 +17,6 @@ class ChatTableViewCell: UITableViewCell {
         image.tintColor = .darkGray
         image.backgroundColor = .systemGray
         image.clipsToBounds = true
-        image.layer.cornerRadius = 24
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.systemGray4.cgColor
         return imageView
@@ -72,6 +71,10 @@ class ChatTableViewCell: UITableViewCell {
         groupTitle.frame = CGRect(x: groupIcon.right+littleSize, y:5, width: groupTitle.intrinsicContentSize.width, height: groupTitle.intrinsicContentSize.height)
         messageLabel.frame = CGRect(x: groupIcon.right+littleSize, y: groupTitle.bottom+7, width:half , height: messageLabel.intrinsicContentSize.height)
         notifyBudge.frame = CGRect(x: contentView.frame.width-60, y: (contentView.frame.height/2)-((notifyBudge.intrinsicContentSize.height+6)/2), width: notifyBudge.intrinsicContentSize.width+15, height: notifyBudge.intrinsicContentSize.height+6)
+        groupIcon.clipsToBounds = true
+        groupIcon.layer.cornerRadius = size/2
+        groupIcon.layer.borderColor = UIColor.systemGray4.cgColor
+        groupIcon.layer.borderWidth = 1
     }
     
     override func prepareForReuse() {

@@ -21,6 +21,7 @@ struct Chat {
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var AllChat = [Chat]()
+    var listener: ListenerRegistration?
     
     func configure(title:String, groupIcon:UIImage){
         AllChat.append(Chat(title:title, message: "こんにちは", groupIcon:groupIcon, notifyNum: 3){
@@ -46,14 +47,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = AllChat[indexPath.row]
+        print("1-2")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as?
         ChatTableViewCell else {
             return UITableViewCell()
         }
+        
         cell.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         cell.tintColor = .white
+        print(indexPath.row, "index")
+        let model = self.AllChat[indexPath.row]
         cell.configure(with: model)
+            
         return cell
     }
     
@@ -65,7 +70,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         view.endEditing(true)
-        
         view.addSubview(chatTableView)
         chatTableView.delegate = self
         chatTableView.dataSource = self
@@ -79,19 +83,25 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AllChat = []
-        Firestore.firestore().collection("user").getDocuments{ (snapshots, err) in
-            if let err = err {
-                print("error",err)
+        let userRef = Firestore.firestore().collection("user")
+        self.listener = userRef.addSnapshotListener(){ (querySnapshot, error) in
+            if let error = error {
+                print("addSnapshotlistenerエラー\(error)")
                 return
             }
-            for document in snapshots!.documents {
-                let userDoc = userData(document: document)
-                self.configure(title: userDoc.username!, groupIcon: UIImage().getImageByUrl(url: userDoc.profileImage ?? ""))
+            self.AllChat = []
+            if querySnapshot?.isEmpty == true { return }
+            for document in querySnapshot!.documents{
+                let userData = userData(document: document)
+                self.configure(title: userData.username ?? "", groupIcon: UIImage().getImageByUrl(url: userData.profileImage ?? ""))
                 self.chatTableView.reloadData()
             }
         }
-       
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        listener?.remove()
     }
     
     private let chatTableView:UITableView = {
@@ -99,6 +109,5 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.backgroundColor = UIColor.darkGray
         return tableView
     }()
-    
 }
 

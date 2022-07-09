@@ -202,7 +202,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(allStackView)
         setting.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
         camera.addTarget(self, action: #selector(photoAccess), for: .touchUpInside)
-        KRProgressHUD.show()
+        KRProgressHUD.show(withMessage: "Loading...", completion: nil)
         DatabaseManager.shared.getDocument{ doc in
             self.nameLabel.text = doc.username
             self.image.image = UIImage().getImageByUrl(url: doc.profileImage ?? "")
@@ -239,8 +239,7 @@ class PostView: UICollectionView ,UICollectionViewDataSource, UICollectionViewDe
 extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     @objc func photoAccess(){
-        KRProgressHUD.set(duration: 1.0)
-        KRProgressHUD.show()
+        KRProgressHUD.show(withMessage: "Loading...", completion: nil)
         DispatchQueue.global().async {
             DispatchQueue.main.sync {
                 let imagePickerController = UIImagePickerController()

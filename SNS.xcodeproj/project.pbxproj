@@ -18,6 +18,9 @@
 		531940AD2871F30600D5299E /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531940AC2871F30600D5299E /* ChatTableViewCell.swift */; };
 		531940AF2872B9CF00D5299E /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531940AE2872B9CF00D5299E /* MessageViewController.swift */; };
 		531940B22872D3D300D5299E /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531940B12872D3D300D5299E /* MessageTableViewCell.swift */; };
+		531A283728775E4D00B68298 /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531A283528775E4D00B68298 /* MessagesTableViewCell.swift */; };
+		531A283828775E4D00B68298 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 531A283628775E4D00B68298 /* MessagesTableViewCell.xib */; };
+		531A283A2878917400B68298 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531A28392878917400B68298 /* Card.swift */; };
 		53236DDC282E96FF00A8ADD0 /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53236DDB282E96FF00A8ADD0 /* IntroduceViewController.swift */; };
 		5328AD46285F5055009E61DB /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD45285F5055009E61DB /* CustomTextfield.swift */; };
 		5328AD4B286083C9009E61DB /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD4A286083C9009E61DB /* ButtonExtension.swift */; };
@@ -76,6 +79,9 @@
 		531940AC2871F30600D5299E /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		531940AE2872B9CF00D5299E /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		531940B12872D3D300D5299E /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		531A283528775E4D00B68298 /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		531A283628775E4D00B68298 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
+		531A28392878917400B68298 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		53236DDB282E96FF00A8ADD0 /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
 		5328AD45285F5055009E61DB /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		5328AD4A286083C9009E61DB /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
@@ -167,6 +173,8 @@
 			children = (
 				531940AE2872B9CF00D5299E /* MessageViewController.swift */,
 				531940B12872D3D300D5299E /* MessageTableViewCell.swift */,
+				531A283528775E4D00B68298 /* MessagesTableViewCell.swift */,
+				531A283628775E4D00B68298 /* MessagesTableViewCell.xib */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -232,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				531940A728709E5A00D5299E /* User.swift */,
+				531A28392878917400B68298 /* Card.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,6 +406,7 @@
 				5304E9BC2876C8A9004D9ED6 /* GoogleService-Info.plist in Resources */,
 				5362B5A3282766C200E3B8E2 /* Main.storyboard in Resources */,
 				53B32C4F285CDAE60047D239 /* PostCollectionViewCell.xib in Resources */,
+				531A283828775E4D00B68298 /* MessagesTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +490,9 @@
 				539A7666286F8E5C00AE4399 /* AccountSettingCell.swift in Sources */,
 				5328AD4B286083C9009E61DB /* ButtonExtension.swift in Sources */,
 				5328AD46285F5055009E61DB /* CustomTextfield.swift in Sources */,
+				531A283A2878917400B68298 /* Card.swift in Sources */,
 				531940AF2872B9CF00D5299E /* MessageViewController.swift in Sources */,
+				531A283728775E4D00B68298 /* MessagesTableViewCell.swift in Sources */,
 				53236DDC282E96FF00A8ADD0 /* IntroduceViewController.swift in Sources */,
 				5362B5C02827699E00E3B8E2 /* LoginViewController.swift in Sources */,
 				5362B5CD28276A4800E3B8E2 /* SearchViewController.swift in Sources */,

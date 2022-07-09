@@ -12,7 +12,7 @@ class AppealViewController: UIViewController {
     public var eventPlace:String?
     public var eventImage: UIImage!
     public var eventTitle: String!
-    public var tagTitle:[String]?
+    public var cardInfo:CardInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,11 +70,8 @@ class AppealViewController: UIViewController {
     @objc func nextScreen(){
         let modalViewController = CheckViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-        modalViewController.eventImage = eventImage
-        modalViewController.eventTitle = eventTitle
-        modalViewController.eventPlace = eventPlace
-        modalViewController.tagTitle = tagTitle
-        modalViewController.appeal = textView.text
+        cardInfo?.appeal = textView.text
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push

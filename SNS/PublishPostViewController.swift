@@ -7,11 +7,15 @@
 
 import UIKit
 import KRProgressHUD
+import FirebaseFirestore
+import FirebaseAuth
 
 class PublishPostViewController: UIViewController {
 
     private var setImage = false
-    private var imageData = ""
+    private var imageData:UIImage?
+    private var ownerName:String = ""
+    private let uid = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,15 @@ class PublishPostViewController: UIViewController {
         addImageButton.addTarget(self, action: #selector(photoAccess), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextScreen), for: .touchUpInside)
+        let uid = Auth.auth().currentUser?.uid
+        Firestore.firestore().collection("user").document(uid!).getDocument{ document, error in
+            if let error = error {
+                print("getDocuentError\(error)")
+                return
+            }
+            let userData = userData(document: document!)
+            self.ownerName = userData.username!
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -106,6 +119,7 @@ extension PublishPostViewController: UIImagePickerControllerDelegate,UINavigatio
             KRProgressHUD.dismiss()
         }
     }
+    
     @objc func back(){
         self.dismiss(animated: true)
     }
@@ -113,7 +127,8 @@ extension PublishPostViewController: UIImagePickerControllerDelegate,UINavigatio
     @objc func nextScreen(){
         let modalViewController = EventSettingViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-        modalViewController.eventImage = cardImageView.image
+        let cardInfo = CardInfo(ownwename: ownerName,ownerUid: uid!, eventImage: imageData!, place: "", eventTitle: "", deadLine: false, eventDate:[""], tagName:[""] , appeal: "")
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push
@@ -126,9 +141,11 @@ extension PublishPostViewController: UIImagePickerControllerDelegate,UINavigatio
         if let editImage = info[.editedImage] as? UIImage {
             cardImageView.contentMode = .scaleToFill
             cardImageView.image = editImage.withRenderingMode(.alwaysOriginal)
+            imageData = editImage.withRenderingMode(.alwaysOriginal)
         }else if let originalImage = info[.originalImage] as? UIImage {
             cardImageView.contentMode = .scaleToFill
             cardImageView.image = originalImage.withRenderingMode(.alwaysOriginal)
+            imageData = originalImage.withRenderingMode(.alwaysOriginal)
         }
         self.nextButton.isEnabled = true
         self.setImage = true

@@ -9,9 +9,7 @@ import UIKit
 
 class TagSelectViewController: UIViewController {
     
-    public var eventPlace:String?
-    public var eventImage: UIImage!
-    public var eventTitle: String!
+    public var cardInfo:CardInfo?
     
     private let liveTag = TagButton()
     private let dateTag = TagButton()
@@ -136,10 +134,8 @@ class TagSelectViewController: UIViewController {
     @objc func nextScreen(){
         let modalViewController = AppealViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-        modalViewController.eventImage = eventImage
-        modalViewController.eventTitle = eventTitle
-        modalViewController.eventPlace = eventPlace
-        modalViewController.tagTitle = tagTitle
+        cardInfo?.tagName = tagTitle
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push

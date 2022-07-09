@@ -6,6 +6,7 @@
 //
 import SafariServices
 import UIKit
+impo
 
 class LoginViewController: UIViewController {
     
@@ -175,7 +176,6 @@ class LoginViewController: UIViewController {
               let password = passwordField.text, !password.isEmpty, password.count >= 8 else {
                   return
               }
-        
         var email: String?
         var name: String?
     
@@ -184,7 +184,6 @@ class LoginViewController: UIViewController {
         }else {
            name = usernameEmail
         }
-        
         print("password",password)
         AuthManager.shared.loginUser(username: name, email: email, passowrd: password){ result in
             DispatchQueue.main.async {
@@ -195,9 +194,7 @@ class LoginViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
-                
             }
-           
         }
     }
     
@@ -222,9 +219,7 @@ class LoginViewController: UIViewController {
         let vc = RegisterViewController()
         vc.title = "Create Account"
         present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-        
     }
-    
 }
 
 extension LoginViewController : UITextFieldDelegate{

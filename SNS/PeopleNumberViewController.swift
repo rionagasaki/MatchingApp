@@ -9,6 +9,8 @@ import UIKit
 
 class PeopleNumberViewController: UIViewController{
 
+    public var cardInfo:CardInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -91,9 +93,9 @@ class PeopleNumberViewController: UIViewController{
     @objc func nextScreen(){
         let modalViewController = TagSelectViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-//        modalViewController.eventImage = eventImage
-//        modalViewController.eventTitle = eventTitle
-//        modalViewController.eventPlace = eventPlace
+        cardInfo?.eventDate = [titleTextField.text!, endtitleTextField.text!]
+        modalViewController.cardInfo = cardInfo
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push

@@ -8,21 +8,20 @@
 import UIKit
 import KRProgressHUD
 import FirebaseFirestore
+import FirebaseStorage
+import FirebaseAuth
 
 class CheckViewController: UIViewController {
 
-    public var eventPlace:String?
-    public var eventImage: UIImage!
-    public var eventTitle: String!
-    public var tagTitle:[String]?
-    public var appeal:String?
+    public var cardInfo:CardInfo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemGray5
         view.addSubview(backButton)
         view.addSubview(mainLabel)
-        view.addSubview(checkCard)
+       // view.addSubview(checkCard)
         view.addSubview(nextButton)
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextScreen), for: .touchUpInside)
@@ -31,8 +30,8 @@ class CheckViewController: UIViewController {
         super.viewDidLayoutSubviews()
         backButton.frame = CGRect(x: view.safeAreaInsets.left+20, y: view.safeAreaInsets.bottom+20, width: 30, height: 30)
         mainLabel.frame = CGRect(x:(view.frame.width/2)-(mainLabel.intrinsicContentSize.width/2), y: 100, width: mainLabel.intrinsicContentSize.width, height: mainLabel.intrinsicContentSize.height)
-        checkCard.frame = CGRect(x: (view.frame.width/2)-((view.frame.width-20)/2), y: mainLabel.bottom+30, width: view.frame.width-20, height: 550)
-        nextButton.frame = CGRect(x: (view.frame.width/2)-150, y: checkCard.bottom+30, width: 300, height: 55)
+        // checkCard.frame = CGRect(x: (view.frame.width/2)-((view.frame.width-20)/2), y: mainLabel.bottom+30, width: view.frame.width-20, height: 550)
+        nextButton.frame = CGRect(x: (view.frame.width/2)-150, y: mainLabel.bottom+30, width: 300, height: 55)
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: nextButton.frame.width, height: nextButton.frame.height)
         gradientLayer.colors = [UIColor.rgb(r: 224, g: 85, b: 108).cgColor,
@@ -49,11 +48,6 @@ class CheckViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
         return label
-    }()
-    
-    private let checkCard:CardView = {
-       let card = CardView()
-        return card
     }()
     
     private let nextButton:ButtonAnimated = {
@@ -75,13 +69,43 @@ class CheckViewController: UIViewController {
             view.window!.layer.add(transition, forKey: kCATransition)
         self.dismiss(animated: false)
     }
+    
     @objc func nextScreen(){
+        guard let uploadImage = cardInfo.eventImage.jpegData(compressionQuality: 0.3) else { return }
+        print(uploadImage)
+        let fileName = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("event_image").child(fileName)
+        storageRef.putData(uploadImage, metadata: nil){(metadata, err) in
+            if let err = err {
+                print("Firestorageへの保存失敗\(err)")
+                return
+            }
+            storageRef.downloadURL{(url, err) in
+                if let err = err {
+                    print("FireStorageからのダウンロードに失敗\(err)")
+                    return
+                }
+                guard let urlString = url?.absoluteString else { return }
+                print(urlString)
+                Firestore.firestore().collection("Cards").document().setData([
+                    "ownerName":self.cardInfo.ownername,
+                    "ownerUid": self.cardInfo.ownerUid,
+                    "eventTitle":self.cardInfo.eventTitle,
+                    "eventImage":urlString,
+                    "eventDate":self.cardInfo.eventDate ,
+                    "place":self.cardInfo.place,
+                    "tagNames":self.cardInfo.tagName,
+                    "appeal":self.cardInfo.appeal
+                ]){ err in
+                    if let err = err{
+                        print("Firestoreへの保存が失敗\(err)")
+                        return
+                    }
+                    print("all Success")
+                }
+            }
+        }
         KRProgressHUD.showSuccess()
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        Firestore.firestore().collection("Cards").document().setData([
-            "ownername":"",
-            "":""
-        ])
-        
     }
 }

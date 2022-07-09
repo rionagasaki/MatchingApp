@@ -9,8 +9,7 @@ import UIKit
 
 class EventSettingViewController: UIViewController {
     
-    public var eventImage:UIImage?
-    
+    public var cardInfo:CardInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +30,6 @@ class EventSettingViewController: UIViewController {
         nextButton.frame = CGRect(x: 30, y: titleTextField.bottom+30, width: 300, height: 55)
     }
     
-   
     private let titleTextField:CustomTextField = {
         let textfield = CustomTextField()
         textfield.placeholder = "イベント名"
@@ -81,8 +79,8 @@ class EventSettingViewController: UIViewController {
     @objc func nextScreen(){
         let modalViewController = EventDetailViewController()
         modalViewController.modalPresentationStyle = .fullScreen
-        modalViewController.eventImage = eventImage
-        modalViewController.eventTitle = titleTextField.text
+        cardInfo?.eventTitle = titleTextField.text!
+        modalViewController.cardInfo = cardInfo
         let transition = CATransition()
             transition.duration = 0.25
             transition.type = CATransitionType.push

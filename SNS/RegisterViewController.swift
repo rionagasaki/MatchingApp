@@ -76,7 +76,6 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

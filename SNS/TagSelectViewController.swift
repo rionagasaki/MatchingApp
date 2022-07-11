@@ -38,17 +38,17 @@ class TagSelectViewController: UIViewController {
         tagBool = tagArray.map{ element in
             element.tapped
         }
-        liveTag.title = "コンサート"
-        dateTag.title = "合コン"
-        saunaTag.title = "サウナ"
-        speechTag.title = "講演会"
-        cafeTag.title = "カフェ"
-        sportTag.title = "スポーツ観戦"
-        gymTag.title = "ジム"
-        shoppingTag.title = "ショッピング"
-        bathTag.title = "温泉"
-        movieTag.title = "映画鑑賞"
-        otherTag.title = "その他"
+        liveTag.title = "日本料理"
+        dateTag.title = "寿司"
+        saunaTag.title = "魚介料理・海鮮料理"
+        speechTag.title = "天ぷら・揚げ物"
+        cafeTag.title = "そば・うどん・麺類"
+        sportTag.title = "うなぎ・どじょう・あなご"
+        gymTag.title = "焼き鳥・串焼き・鳥料理"
+        shoppingTag.title = "すき焼き・しゃぶしゃぶ"
+        bathTag.title = "おでん"
+        movieTag.title = "お好み焼き・たこ焼き"
+        otherTag.title = "丼もの"
         
         tagArray.forEach{element in
                view.addSubview(element)

@@ -29,7 +29,7 @@ public class ButtonAnimated: UIButton {
                            delay: 0.0,
                            options: UIView.AnimationOptions.curveEaseIn,
                            animations: {
-                            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                            self.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
             },
                            completion: nil
             )

@@ -17,6 +17,7 @@ target 'SNS' do
   pod 'SkeletonView'
   pod 'MessageKit'
   pod 'MessageInputBar'
+  pod 'Cosmos'
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|

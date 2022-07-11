@@ -1,5 +1,7 @@
 import UIKit
 import FirebaseFirestore
+import Cosmos
+import CoreGraphics
 
 class CardView: UIView {
     
@@ -10,6 +12,14 @@ class CardView: UIView {
         imageView.layer.cornerRadius = 20
         imageView.contentMode = .scaleToFill
         return imageView
+    }()
+    
+    private let cosmos:CosmosView = {
+        let cosmos = CosmosView()
+        cosmos.settings.filledImage = UIImage(named: "GoldStar")
+        cosmos.settings.emptyImage = UIImage(named: "EmptyImage")
+        cosmos.settings.updateOnTouch = false
+        return cosmos
     }()
     
     private let eventName:UILabel = {
@@ -31,6 +41,7 @@ class CardView: UIView {
         textView.layer.borderColor = UIColor.white.cgColor
         textView.layer.cornerRadius = 20
         textView.isEditable = false
+        textView.isHidden = true
         return textView
     }()
     
@@ -40,30 +51,28 @@ class CardView: UIView {
         view.backgroundColor = .black
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
-        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
     private let dateLabel:UIButton = {
        let label = UIButton()
-        label.setTitle("", for: .normal)
         label.setImage(UIImage(systemName: "calendar.badge.clock"), for: .normal)
+        label.tintColor = .white
+        label.setTitle("8-13 13:00~", for: .normal)
+        label.configuration?.imagePadding = CGFloat(20)
        return label
     }()
     
-    private let placeLabel:UILabel = {
-       let label = UILabel()
-       label.font = .boldSystemFont(ofSize: 15)
-        label.textColor = .black
+    private let placeLabel:UIButton = {
+       let label = UIButton()
+        label.setImage(UIImage(systemName: "map"), for: .normal)
+        label.tintColor = .white
+        label.setTitle("新宿駅", for: .normal)
+        label.configuration?.imagePadding = CGFloat(20)
        return label
     }()
     
-    private let personNumber:UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 15)
-        label.textColor = .black
-        return label
-    }()
+    
     
     private let ownerName:UILabel = {
         let label = UILabel()
@@ -86,6 +95,30 @@ class CardView: UIView {
         imageView.layer.borderColor = UIColor.systemGray4.cgColor
         return imageView
     }()
+    
+    private let detail:UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    private let tagLabel :UIButton = {
+       let button = UIButton()
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 15
+       return button
+    }()
+
+    private let endDetail:UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        button.tintColor = .white
+        button.isHidden = true
+        button.isEnabled = false
+        return button
+    }()
+    
     let goodLabel: UILabel = {
            let lable = UILabel()
             lable.font = .boldSystemFont(ofSize: 45)
@@ -118,21 +151,59 @@ class CardView: UIView {
         
     init(model:cardData) {
         super.init(frame: .zero)
+        subView()
         configure(with: model)
-        backgroundColor = .white
-        layer.cornerRadius = 20
+        detail.addTarget(self, action: #selector(didTouchDetail), for: .touchUpInside)
+        endDetail.addTarget(self, action: #selector(hideDetail), for: .touchUpInside)
+    }
+    
+    private func subView(){
+        
+        
         addSubview(cardImageView)
-        addSubview(backView)
-        addSubview(appealTextView)
+        cardImageView.addSubview(backView)
+        cardImageView.addSubview(tagLabel)
+        addSubview(endDetail)
         addSubview(eventName)
-        appealTextView.bringSubviewToFront(eventName)
+        addSubview(cosmos)
+        addSubview(appealTextView)
         addSubview(goodLabel)
         addSubview(nopeLabel)
         addSubview(ownerImage)
         addSubview(dateLabel)
         addSubview(placeLabel)
-        addSubview(personNumber)
         addSubview(ownerName)
+        addSubview(detail)
+    }
+    
+    @objc func didTouchDetail(){
+        if detail.currentImage == UIImage(systemName: "chevron.up"){
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
+                self.backView.center.y = self.cardImageView.top + self.backView.height/2
+                self.eventName.center.y = self.cardImageView.top + 10 + self.eventName.height/2
+                self.detail.center.y = self.cardImageView.top+10 + self.eventName.height/2
+                self.cosmos.center.y = self.eventName.bottom + 10
+                self.appealTextView.center.y = self.cosmos.bottom + 120
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.15){
+                    self.appealTextView.isHidden = false
+                }
+                self.detail.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+            }
+        }else{
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
+                self.detail.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+                self.backView.center.y = self.cardImageView.top + self.backView.height
+                self.eventName.center.y = self.cardImageView.top + 10 + self.backView.height/2 + self.eventName.height/2
+                self.cosmos.center.y = self.eventName.bottom + 10
+                self.appealTextView.isHidden = true
+                self.detail.center.y = self.backView.top + 10 + self.eventName.height/2
+                self.eventName.isHidden = false
+            }
+        }
+    }
+    
+    @objc private func hideDetail(){
+       
     }
     
     override func layoutSubviews() {
@@ -140,17 +211,27 @@ class CardView: UIView {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panCardGesture))
         self.addGestureRecognizer(panGesture)
         cardImageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        backView.frame = CGRect(x: 0, y: cardImageView.frame.height/2, width: frame.width, height: frame.height/2)
+        backView.frame = CGRect(x: 0, y: cardImageView.frame.height/2, width: frame.width, height: frame.height)
         eventName.frame = CGRect(x: (frame.width/2)-((eventName.intrinsicContentSize.width+20)/2), y: backView.top+10, width:eventName.intrinsicContentSize.width+20, height: eventName.intrinsicContentSize.height+10)
-        appealTextView.frame = CGRect(x: (frame.width/2)-((frame.width/1.3)/2), y: eventName.frame.midY, width: frame.width/1.3, height: frame.height/3)
+        detail.frame = CGRect(x: 20, y: backView.top + eventName.height/2, width: endDetail.intrinsicContentSize.width, height: endDetail.intrinsicContentSize.height)
+        cosmos.frame = CGRect(x: (frame.width/2)-((cosmos.intrinsicContentSize.width)/2), y: eventName.bottom+10, width: cosmos.intrinsicContentSize.width, height: cosmos.intrinsicContentSize.height)
+        appealTextView.frame = CGRect(x: (frame.width/2)-((backView.frame.width-100)/2), y: cosmos.bottom+20, width: backView.frame.width-100, height: cardImageView.frame.height/3)
         ownerImage.frame = CGRect(x: cardImageView.left+10, y: cardImageView.bottom-40, width: 30, height: 30)
         ownerName.frame = CGRect(x: ownerImage.right+10, y: ownerImage.frame.minY, width: ownerName.intrinsicContentSize.width+10, height: ownerName.intrinsicContentSize.height+10)
-        dateLabel.frame = CGRect(x: eventName.left, y: ownerName.bottom+5, width: dateLabel.intrinsicContentSize.width+10, height: dateLabel.intrinsicContentSize.height+10)
-        placeLabel.frame = CGRect(x: eventName.left, y: dateLabel.bottom+5, width: placeLabel.intrinsicContentSize.width+10, height: placeLabel.intrinsicContentSize.height+10)
-        personNumber.frame = CGRect(x: eventName.left, y: placeLabel.bottom+5, width: personNumber.intrinsicContentSize.width+10, height: personNumber.intrinsicContentSize.height+10)
+        tagLabel.frame = CGRect(x: backView.left+10, y:cosmos.bottom+15 , width: tagLabel.intrinsicContentSize.width+10, height: tagLabel.intrinsicContentSize.height)
+        placeLabel.frame = CGRect(x: tagLabel.left + 10, y: tagLabel.bottom+15, width: placeLabel.intrinsicContentSize.width, height: placeLabel.intrinsicContentSize.height)
+        dateLabel.frame = CGRect(x: tagLabel.left+10, y: placeLabel.bottom+10, width: dateLabel.intrinsicContentSize.width, height: dateLabel.intrinsicContentSize.height)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: tagLabel.frame.width, height: tagLabel.frame.height)
+        gradientLayer.colors = [UIColor.rgb(r: 224, g: 85, b: 108).cgColor,
+                                UIColor.rgb(r: 146, g: 59, b: 228).cgColor]
+        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint.init(x: 1, y:0.5)
+        tagLabel.layer.insertSublayer(gradientLayer, at:0)
         goodLabel.frame = CGRect(x: 30, y: 400, width: 300, height: 50)
         nopeLabel.frame = CGRect(x: 30, y: 400, width: 300, height: 50)
     }
+    
     
     @objc private func panCardGesture(gesture:UIPanGestureRecognizer){
         let translation = gesture.translation(in: self)
@@ -219,9 +300,11 @@ class CardView: UIView {
         ownerName.text = model.ownerName
         eventName.text = model.eventTitle
         cardImageView.image = UIImage().getImageByUrl(url: model.eventImageURL!)
-        dateLabel.text = model.date
-        placeLabel.text = model.place
-        personNumber.text = model.appeal
+        for tagName in model.tagName {
+            
+            tagLabel.frame = CGRect(x: eventName.left, y: eventName.bottom+10, width: tagLabel.intrinsicContentSize.width, height: tagLabel.intrinsicContentSize.height)
+            tagLabel.setTitle(tagName, for: .normal)
+        }
     }
     
     required init?(coder: NSCoder) {

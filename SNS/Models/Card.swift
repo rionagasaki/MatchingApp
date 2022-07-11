@@ -10,6 +10,7 @@ open class cardData: NSObject {
     var date: String?
     var place: String?
     var appeal: String?
+    var tagName:[String]
     
     init(document: QueryDocumentSnapshot){
         self.id = document.documentID
@@ -19,6 +20,7 @@ open class cardData: NSObject {
         self.ownerName = cardDic["ownerName"]as? String
         self.date = cardDic["eventDate"]as? String
         self.appeal = cardDic["appeal"]as? String
+        self.tagName = (cardDic["tagNames"] as? [String])!
     }
 
     init(document: DocumentSnapshot){
@@ -29,6 +31,7 @@ open class cardData: NSObject {
         self.ownerName = cardDic["ownerName"]as? String
         self.date = cardDic["eventDate"]as? String
         self.appeal = cardDic["appeal"]as? String
+        self.tagName = (cardDic["tagNames"] as? [String])!
     }
 }
 

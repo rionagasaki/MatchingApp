@@ -16,7 +16,6 @@ class ExploreViewController: UIViewController {
         let auth = Auth.auth()
         auth.addStateDidChangeListener{(auth, user) in
         if (user != nil) {
-            
             print("userです",user!)
         }else{
             print("no user")
@@ -50,8 +49,8 @@ class ExploreViewController: UIViewController {
         gradientLayer.startPoint = CGPoint.init(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint.init(x: 1, y:0.5)
         makeCardButton.layer.insertSublayer(gradientLayer, at:0)
-       
     }
+    
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()

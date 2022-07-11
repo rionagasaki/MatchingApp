@@ -32,20 +32,9 @@ class MessageTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        MessageTableViewCell.heights = []
-        profileIcon.frame = CGRect(x: contentView.frame.size.width/30, y:(contentView.frame.size.height/2)-15, width: 30, height:30)
-        if messageLabel.intrinsicContentSize.width > 150 {
-            let height = messageLabel.intrinsicContentSize.width/150
-            let size = messageLabel.intrinsicContentSize.width/height
-            messageLabel.frame = CGRect(x: profileIcon.right+10, y: (contentView.frame.height/2)-((messageLabel.intrinsicContentSize.height+20)/2), width:size+50, height: ((messageLabel.intrinsicContentSize.height)*height)+20)
-        }else{
-        messageLabel.frame = CGRect(x: profileIcon.right+10, y: (contentView.frame.height/2)-((messageLabel.intrinsicContentSize.height+20)/2), width:messageLabel.intrinsicContentSize.width+25, height: messageLabel.intrinsicContentSize.height+20)
-        }
-        messageLabel.clipsToBounds = true
-        messageLabel.layer.cornerRadius = 18
-        profileIcon.clipsToBounds = true
-        profileIcon.layer.cornerRadius = profileIcon.frame.width/2
-        MessageTableViewCell.heights.append(messageLabel.frame.height)
+//        profileIcon.anchor(left: 15, right: 15, width: 60, height: 60)
+//        messageLabel.anchor(top: <#T##NSLayoutYAxisAnchor?#>, bottom: <#T##NSLayoutYAxisAnchor?#>, left: <#T##NSLayoutXAxisAnchor?#>, right: <#T##NSLayoutXAxisAnchor?#>, width: <#T##CGFloat?#>, height: <#T##CGFloat?#>)
+//        talker.anchor(top: <#T##NSLayoutYAxisAnchor?#>, bottom: <#T##NSLayoutYAxisAnchor?#>, left: <#T##NSLayoutXAxisAnchor?#>, right: <#T##NSLayoutXAxisAnchor?#>, width: <#T##CGFloat?#>, height: <#T##CGFloat?#>)
     }
     
     public func configure(with model:Message){
@@ -53,7 +42,6 @@ class MessageTableViewCell: UITableViewCell {
         talker.text = model.talker
         profileIcon.image = model.profileIcon
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,5 +67,4 @@ class MessageTableViewCell: UITableViewCell {
         label.textColor = .white
         return label
     }()
-    
 }

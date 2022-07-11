@@ -6,7 +6,7 @@
 //
 import SafariServices
 import UIKit
-impo
+
 
 class LoginViewController: UIViewController {
     
@@ -97,7 +97,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         view.backgroundColor = .systemBackground
         usernameEmailField.delegate = self
         passwordField.delegate = self
@@ -106,8 +105,6 @@ class LoginViewController: UIViewController {
         createAccountButton.addTarget(self, action: #selector(didTapCreateButton), for: .touchUpInside)
         termsButton.addTarget(self, action: #selector(didTapTermsButton), for: .touchUpInside)
         privacyButton.addTarget(self, action: #selector(didTapPrivacyButton), for: .touchUpInside)
-        
-        
         addSubviews()
     }
     

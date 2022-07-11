@@ -32,10 +32,7 @@ class HomeViewController: UIViewController {
             self.present(modalViewController, animated: true, completion: nil)
         }
         }
-      
-       
     }
-    
     private func handleNotAuthenticated(){
         if Auth.auth().currentUser == nil {
             let vc = IntroduceViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -44,10 +41,5 @@ class HomeViewController: UIViewController {
             present(vc, animated: false)
         }
     }
-    
-   
-    
-    
-
 }
 

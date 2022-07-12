@@ -212,6 +212,8 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AlgoliaSearchClient (8.14.0):
+    - Logging
   - Appirater (2.3.1)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
@@ -343,10 +345,12 @@ PODS:
   - InputBarAccessoryView (4.3.3):
     - InputBarAccessoryView/Core (= 4.3.3)
   - InputBarAccessoryView/Core (4.3.3)
+  - InstantSearchClient (7.0.5)
   - KRActivityIndicatorView (3.0.7)
   - KRProgressHUD (3.4.7):
     - KRActivityIndicatorView (= 3.0.7)
   - leveldb-library (1.22.1)
+  - Logging (1.4.0)
   - MessageInputBar (0.4.1):
     - MessageInputBar/Core (= 0.4.1)
   - MessageInputBar/Core (0.4.1)
@@ -361,6 +365,7 @@ PODS:
   - SkeletonView (1.29.2)
 
 DEPENDENCIES:
+  - AlgoliaSearchClient
   - Appirater
   - Cosmos
   - Firebase/Analytics
@@ -369,6 +374,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Firestore
   - Firebase/Storage
+  - InstantSearchClient
   - KRProgressHUD
   - MessageInputBar
   - MessageKit
@@ -377,6 +383,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AlgoliaSearchClient
     - Appirater
     - BoringSSL-GRPC
     - Cosmos
@@ -396,9 +403,11 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - InputBarAccessoryView
+    - InstantSearchClient
     - KRActivityIndicatorView
     - KRProgressHUD
     - leveldb-library
+    - Logging
     - MessageInputBar
     - MessageKit
     - nanopb
@@ -407,6 +416,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  AlgoliaSearchClient: aef6b9a39ead22178c4b96a2f92814c280e7d769
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
@@ -426,15 +436,17 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InputBarAccessoryView: 8e7fc09e9cba75e0fee5da13450e15c194806f69
+  InstantSearchClient: cd4b41f46bed82c1b12c759c76b733f7ed6dd8c2
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
   KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
   MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
   MessageKit: a3e612a54a24f5d9ca0295760749b481afd3f2da
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
 
-PODFILE CHECKSUM: 61c50f8cb7a6f05d70349c8f6e8dd9b1d87272b3
+PODFILE CHECKSUM: 72d1b54177ae3457ce5ad328b8552d29cc639143
 
 COCOAPODS: 1.11.3

@@ -18,6 +18,8 @@ target 'SNS' do
   pod 'MessageKit'
   pod 'MessageInputBar'
   pod 'Cosmos'
+  pod 'InstantSearchClient'
+  pod 'AlgoliaSearchClient'
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|

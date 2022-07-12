@@ -35,8 +35,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return imageView
     }()
     
-    
-    
     private let image: UIImageView = {
         let image = UIImageView(image: UIImage(systemName: "person.fill")?.withTintColor(.darkGray))
         image.tintColor = .darkGray
@@ -181,11 +179,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         PostCollectionView.delegate = self
         PostCollectionView.dataSource = self
         PostCollectionView.register(UINib(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
         view.addSubview(setting)
+        navigationItem.titleView = myPage
         view.addSubview(image)
         view.addSubview(camera)
         view.addSubview(nameLabel)
@@ -198,7 +196,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         bottomstackView.addArrangedSubview(kingLabel)
         allStackView.addSubview(bottomstackView)
         allStackView.addSubview(topstackView)
-        view.addSubview(myPage)
+    
         view.addSubview(allStackView)
         setting.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
         camera.addTarget(self, action: #selector(photoAccess), for: .touchUpInside)
@@ -218,7 +216,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         allStackView.frame = CGRect(x: view.width-200, y: nameLabel.bottom+5, width: 150, height: 70)
         topstackView.frame = CGRect(x: 0, y: 0, width: allStackView.width, height: allStackView.height/2)
         bottomstackView.frame = CGRect(x: 0, y: topstackView.bottom, width: allStackView.width, height: allStackView.height/2)
-        myPage.frame = CGRect(x:view.frame.width/2-view.frame.width/10, y: view.frame.height/20, width: view.frame.width/4, height: 60)
         setting.frame = CGRect(x:view.frame.width-90 + view.frame.width/20, y: view.safeAreaInsets.top+70, width: 30, height: 30)
     }
 }

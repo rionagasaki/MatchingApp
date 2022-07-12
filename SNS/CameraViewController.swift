@@ -27,17 +27,22 @@ class CameraViewController: UIViewController {
         return button
     }()
     
+    private let myPage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "bubbleCard")
+        return imageView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.titleView = myPage
         view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         mainView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         view.addSubview(addButton)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+       
         view.addSubview(mainView)
-        print("viewWillApeear")
         cards = []
         KRProgressHUD.show(withMessage: "Loading...", completion: nil)
         let cardRef = Firestore.firestore().collection("Cards")
@@ -59,6 +64,9 @@ class CameraViewController: UIViewController {
             print("end")
             KRProgressHUD.dismiss()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
     }
     
     override func viewDidDisappear(_ animated: Bool) {

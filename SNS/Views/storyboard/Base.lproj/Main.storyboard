@@ -197,10 +197,10 @@
             </objects>
             <point key="canvasLocation" x="-213" y="1700"/>
         </scene>
-        <!--Chat View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="8yc-ZN-wHb">
             <objects>
-                <viewController id="h1U-bg-syT" customClass="ChatViewController" customModule="SNS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="h1U-bg-syT" customClass="SearchViewController" customModule="SNS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ytQ-pR-Cgc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

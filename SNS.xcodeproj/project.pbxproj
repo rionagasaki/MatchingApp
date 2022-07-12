@@ -22,6 +22,8 @@
 		531A283828775E4D00B68298 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 531A283628775E4D00B68298 /* MessagesTableViewCell.xib */; };
 		531A283A2878917400B68298 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531A28392878917400B68298 /* Card.swift */; };
 		53236DDC282E96FF00A8ADD0 /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53236DDB282E96FF00A8ADD0 /* IntroduceViewController.swift */; };
+		53284AE5287C953100FB5882 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53284AE4287C953100FB5882 /* SearchViewController.swift */; };
+		53284AE7287CA4BF00FB5882 /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53284AE6287CA4BF00FB5882 /* FirebaseFunctions.swift */; };
 		5328AD46285F5055009E61DB /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD45285F5055009E61DB /* CustomTextfield.swift */; };
 		5328AD4B286083C9009E61DB /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD4A286083C9009E61DB /* ButtonExtension.swift */; };
 		5328AD4D28608E77009E61DB /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD4C28608E77009E61DB /* EventDetailViewController.swift */; };
@@ -83,6 +85,8 @@
 		531A283628775E4D00B68298 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
 		531A28392878917400B68298 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		53236DDB282E96FF00A8ADD0 /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
+		53284AE4287C953100FB5882 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		53284AE6287CA4BF00FB5882 /* FirebaseFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		5328AD45285F5055009E61DB /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		5328AD4A286083C9009E61DB /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		5328AD4C28608E77009E61DB /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 				5362B59B282766C200E3B8E2 /* AppDelegate.swift */,
 				5362B59D282766C200E3B8E2 /* SceneDelegate.swift */,
 				5362B5D62827983100E3B8E2 /* FirebaseDatabase.swift */,
+				53284AE6287CA4BF00FB5882 /* FirebaseFunctions.swift */,
 				5362B5D8282798F800E3B8E2 /* AuthManager.swift */,
 				5304E9B728736C0C004D9ED6 /* UILabelIndent.swift */,
 				5304E9BB2876C8A9004D9ED6 /* GoogleService-Info.plist */,
@@ -293,6 +298,7 @@
 				5362B59F282766C200E3B8E2 /* HomeViewController.swift */,
 				5362B5B5282768AC00E3B8E2 /* ExploreViewController.swift */,
 				5362B5B7282768F800E3B8E2 /* CameraViewController.swift */,
+				53284AE4287C953100FB5882 /* SearchViewController.swift */,
 				531940AB2871F2E900D5299E /* Chat */,
 				5362B5BB2827691F00E3B8E2 /* ProfileViewController.swift */,
 			);
@@ -489,6 +495,7 @@
 				5302546C285E333F001DF345 /* CardView.swift in Sources */,
 				539A7666286F8E5C00AE4399 /* AccountSettingCell.swift in Sources */,
 				5328AD4B286083C9009E61DB /* ButtonExtension.swift in Sources */,
+				53284AE7287CA4BF00FB5882 /* FirebaseFunctions.swift in Sources */,
 				5328AD46285F5055009E61DB /* CustomTextfield.swift in Sources */,
 				531A283A2878917400B68298 /* Card.swift in Sources */,
 				531940AF2872B9CF00D5299E /* MessageViewController.swift in Sources */,
@@ -502,6 +509,7 @@
 				5362B5D9282798F800E3B8E2 /* AuthManager.swift in Sources */,
 				531940B22872D3D300D5299E /* MessageTableViewCell.swift in Sources */,
 				5328AD5528617EED009E61DB /* AppealViewController.swift in Sources */,
+				53284AE5287C953100FB5882 /* SearchViewController.swift in Sources */,
 				5362B59E282766C200E3B8E2 /* SceneDelegate.swift in Sources */,
 				5362B5CB28276A2B00E3B8E2 /* ListViewController.swift in Sources */,
 				531940AD2871F30600D5299E /* ChatTableViewCell.swift in Sources */,

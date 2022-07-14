@@ -13,6 +13,7 @@ target 'SNS' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Storage'
+  pod 'Firebase/Functions'
   pod 'KRProgressHUD'
   pod 'SkeletonView'
   pod 'MessageKit'

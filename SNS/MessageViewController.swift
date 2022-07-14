@@ -23,6 +23,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "同窓会"
         view.backgroundColor = .darkGray
         view.addSubview(navigation)
         view.addSubview(tableView)
@@ -136,7 +137,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private let navigation:UIView = {
        let view = UIView()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         return view
     }()
     
@@ -166,7 +167,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private let bottomView:UIView = {
        let view = UIView()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         return view
     }()
     

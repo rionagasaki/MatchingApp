@@ -61,7 +61,14 @@ class AccountSettingViewController: UIViewController, UITableViewDelegate, UITab
                 self.present(modalViewController, animated: false, completion: nil)
             },
             SettingOption(title: "パスワード", iconImage: UIImage(systemName: "key"), iconBackground:UIColor.systemGray4 ){
-                
+                let modalViewController = PasswordChangeViewController()
+                modalViewController.modalPresentationStyle = .fullScreen
+                let transition = CATransition()
+                    transition.duration = 0.25
+                    transition.type = CATransitionType.push
+                    transition.subtype = CATransitionSubtype.fromRight
+                self.view.window!.layer.add(transition, forKey: kCATransition)
+                self.present(modalViewController, animated: false, completion: nil)
             }
         ]))
         models.append( Section(title: "ブロック", option: [
@@ -125,10 +132,12 @@ class AccountSettingViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        title = "Setting"
-        view.backgroundColor = .systemGray5
-        view.addSubview(backButton)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
+        title = "各種設定"
+        navigationItem.titleView?.tintColor = .white
+        navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
+        view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -137,20 +146,13 @@ class AccountSettingViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        backButton.frame = CGRect(x: view.safeAreaInsets.left+20, y: view.safeAreaInsets.bottom+20, width: 30, height: 30)
-        tableView.frame = CGRect(x: 0, y: backButton.bottom+10, width: view.width, height: view.height-60)
+        tableView.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
     }
     
-    private let backButton:UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-        button.tintColor = .black
-        return button
-    }()
-
     private let tableView:UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.backgroundColor = UIColor.darkGray
+        table.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        table.isScrollEnabled = false
         return table
     }()
 }

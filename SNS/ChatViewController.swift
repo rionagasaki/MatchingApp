@@ -69,18 +69,22 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        navigationItem.title = "DM"
+        navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.tintColor = .white
         view.endEditing(true)
         view.addSubview(chatTableView)
         chatTableView.delegate = self
         chatTableView.dataSource = self
         chatTableView.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.identifier)
-        chatTableView.backgroundColor = .darkGray
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         chatTableView.frame = CGRect(x: 0, y: view.frame.size.height/7, width: view.width, height: view.height)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let userRef = Firestore.firestore().collection("user")
@@ -106,7 +110,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private let chatTableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = UIColor.darkGray
+        tableView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         return tableView
     }()
 }

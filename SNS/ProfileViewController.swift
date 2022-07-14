@@ -12,7 +12,12 @@ import FirebaseStorage
 import KRProgressHUD
 import SkeletonView
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    private var scrollView: UIScrollView!
+    private var pageControl: UIPageControl!
+    private var images = [UIImageView]()
+    var collections: [UICollectionView] = []
+    let flowLayout = UICollectionViewFlowLayout()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
@@ -25,9 +30,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return cell
     }
 
-    @IBOutlet weak var PostCollectionView: UICollectionView!
-
-    
     private let myPage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -44,6 +46,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.systemGray4.cgColor
         return image
+    }()
+    
+    private let border:UIView = {
+       let view = UIView()
+        view.backgroundColor = .orange
+        return view
     }()
     
     public let nameLabel: UILabel = {
@@ -82,6 +90,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
        let button = UIButton()
         button.backgroundColor = .white
         button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.tintColor = .systemOrange
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 15
+       return button
+    }()
+    
+    private let messages: UIButton = {
+       let button = UIButton()
+        button.backgroundColor = .white
+        button.setImage(UIImage(systemName: "envelope"), for: .normal)
         button.tintColor = .systemOrange
         button.clipsToBounds = true
         button.layer.cornerRadius = 15
@@ -142,12 +160,31 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         label.font = UIFont(name: "MarkerFelt-Thin", size: 15)
        return label
     }()
+    
+    private let firstImage:UIImageView = {
+       let imageView = UIImageView()
+        imageView.tintColor = .systemGray5
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(systemName: "square.and.arrow.down")
+        return imageView
+    }()
+    
+    private let secondImage:UIImageView = {
+       let imageView = UIImageView()
+        imageView.tintColor = .systemGray5
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(systemName: "person")
+        return imageView
+    }()
    
     @objc private func goSetting(){
         let modalViewController = AccountSettingViewController()
-        modalViewController.modalPresentationStyle = .fullScreen
-        
-        self.present(modalViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(modalViewController, animated: true)
+    }
+    
+    @objc private func goMessages(){
+        let modalViewController = ChatViewController()
+        self.navigationController?.pushViewController(modalViewController, animated: true)
     }
     
     @objc func signOutButtonTaped(){
@@ -179,15 +216,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        PostCollectionView.delegate = self
-        PostCollectionView.dataSource = self
-        PostCollectionView.register(UINib(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        
         view.addSubview(setting)
+        view.addSubview(messages)
         navigationItem.titleView = myPage
         view.addSubview(image)
         view.addSubview(camera)
         view.addSubview(nameLabel)
         view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        
         topstackView.addArrangedSubview(addressItem)
         topstackView.addArrangedSubview(addressLabel)
         bottomstackView.addArrangedSubview(friendItem)
@@ -196,9 +233,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         bottomstackView.addArrangedSubview(kingLabel)
         allStackView.addSubview(bottomstackView)
         allStackView.addSubview(topstackView)
-    
         view.addSubview(allStackView)
         setting.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
+        messages.addTarget(self, action: #selector(goMessages), for: .touchUpInside)
         camera.addTarget(self, action: #selector(photoAccess), for: .touchUpInside)
         KRProgressHUD.show(withMessage: "Loading...", completion: nil)
         DatabaseManager.shared.getDocument{ doc in
@@ -209,6 +246,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    @objc private func firstButton(){
+        firstImage.tintColor = .orange
+        secondImage.tintColor = .systemGray5
+        pageControl.currentPage = 1
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
+            self.border.frame = CGRect(x: 0, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
+        }
+    }
+    
+    @objc private func secondButton(){
+        firstImage.tintColor = .systemGray5
+        secondImage.tintColor = .orange
+        pageControl.currentPage = 0
+        scrollView.setContentOffset(CGPoint(x: view.frame.width, y: 0), animated: true)
+        UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
+            self.border.frame = CGRect(x: self.view.frame.width/2, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         image.frame = CGRect(x: 30, y: view.safeAreaInsets.top+50, width: 140, height: 140)
         camera.frame = CGRect(x: 35, y: image.bottom-50, width: 40, height: 40)
@@ -216,7 +273,60 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         allStackView.frame = CGRect(x: view.width-200, y: nameLabel.bottom+5, width: 150, height: 70)
         topstackView.frame = CGRect(x: 0, y: 0, width: allStackView.width, height: allStackView.height/2)
         bottomstackView.frame = CGRect(x: 0, y: topstackView.bottom, width: allStackView.width, height: allStackView.height/2)
-        setting.frame = CGRect(x:view.frame.width-90 + view.frame.width/20, y: view.safeAreaInsets.top+70, width: 30, height: 30)
+        setting.frame = CGRect(x:view.frame.width - 100, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
+        messages.frame = CGRect(x:setting.right+20, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
+        flowLayout.itemSize = CGSize(width: 100, height: 100)
+        scrollView = UIScrollView(frame: CGRect(x:0, y: image.bottom+45, width: view.frame.width, height: view.frame.height-image.bottom-10))
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width*2, height: 200)
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = .orange
+        view.addSubview(scrollView)
+        let firstCollectionView = UICollectionView(frame: CGRect(x:0, y: view.top, width: view.frame.width, height: view.height), collectionViewLayout: flowLayout)
+        let secondCollectionView = UICollectionView(frame: CGRect(x:view.frame.width, y: view.top, width: view.frame.width, height: view.height), collectionViewLayout: flowLayout)
+        scrollView.addSubview(firstCollectionView)
+        scrollView.addSubview(secondCollectionView)
+        firstCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        secondCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        firstCollectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        secondCollectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
+        collections = [firstCollectionView, secondCollectionView]
+        
+        firstCollectionView.delegate = self
+        firstCollectionView.dataSource = self
+        secondCollectionView.delegate = self
+        secondCollectionView.dataSource = self
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: image.bottom+10, width: self.view.frame.size.width, height: 30))
+        pageControl.numberOfPages = 2
+        pageControl.pageIndicatorTintColor = UIColor.clear
+        pageControl.currentPageIndicatorTintColor = UIColor.clear
+        view.addSubview(pageControl)
+        view.addSubview(firstImage)
+        view.addSubview(secondImage)
+        firstImage.frame = CGRect(x: 0, y: image.bottom+10, width: view.frame.width/2, height: 30)
+        secondImage.frame = CGRect(x: firstImage.right, y: image.bottom+10, width: view.frame.width/2, height: 30)
+        images = [firstImage, secondImage]
+        images[pageControl.currentPage].tintColor = .orange
+        firstImage.isUserInteractionEnabled = true
+        secondImage.isUserInteractionEnabled = true
+        firstImage.addGestureRecognizer(UITapGestureRecognizer(
+            target: self,
+            action: #selector(firstButton)))
+        secondImage.addGestureRecognizer(UITapGestureRecognizer(
+            target: self,
+            action: #selector(secondButton)))
+        view.addSubview(border)
+        border.frame = CGRect(x: 0, y: firstImage.bottom+5, width: view.frame.width/2, height: 2)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if images[pageControl.currentPage] == firstImage{
+            secondImage.tintColor = .systemGray5
+        }else if images[pageControl.currentPage] == secondImage{
+            firstImage.tintColor = .systemGray5
+        }
     }
 }
 
@@ -289,3 +399,28 @@ extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationCon
         dismiss(animated: true, completion: nil)
     }
 }
+
+extension ProfileViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if pageControl.currentPage == 0 {
+            print("aa")
+            images[0].tintColor = .orange
+            images[1].tintColor = .systemGray5
+            UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
+                self.border.frame = CGRect(x: 0, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
+            }
+        }else{
+            images[0].tintColor = .systemGray5
+            images[1].tintColor = .orange
+            UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
+                self.border.frame = CGRect(x: self.view.frame.width/2, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
+            }
+        }
+    }
+}
+
+

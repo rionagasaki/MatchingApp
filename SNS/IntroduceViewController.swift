@@ -53,11 +53,9 @@ extension IntroduceViewController: UIPageViewControllerDataSource{
         print(index)
                 pageControl.currentPage = index
                 index = index - 1
-
                 if index < 0 {
                     return nil
                 }
-                
                 return controllers[index]
     }
     
@@ -71,14 +69,9 @@ extension IntroduceViewController: UIPageViewControllerDataSource{
                 }
         index = index + 1
                 return controllers[index]
-        
     }
-    
 }
-
-
 class FirstViewController: UIViewController {
-    
     
     private var firstLabel: UILabel = {
         let label = UILabel()
@@ -105,8 +98,6 @@ class FirstViewController: UIViewController {
         return button
     }()
     
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("firstViewController")
@@ -120,7 +111,6 @@ class FirstViewController: UIViewController {
         firstImage.frame = CGRect(x:0 , y: view.safeAreaInsets.top+90, width: view.frame.size.width, height: view.frame.size.height/2.5)
         firstLabel.frame = CGRect(x:0 , y: firstImage.bottom + 20, width: view.frame.size.width, height: 70)
         beginButton.frame = CGRect(x: 20, y: firstLabel.bottom + 10, width: view.width-40, height: 52)
-        
     }
 }
 
@@ -164,10 +154,7 @@ class SecondViewController: UIViewController {
         secondImage.frame = CGRect(x: 0, y: view.safeAreaInsets.top+90, width: view.frame.size.width, height: view.frame.size.height/2.5)
         secondLabel.frame = CGRect(x: 0, y: secondImage.bottom+20, width: view.width, height: 70)
         beginButton.frame = CGRect(x: 20, y: secondLabel.bottom+10, width: view.width-40, height: 52)
-        
     }
-    
-    
 }
 
 class ThirdViewController: UIViewController {
@@ -187,7 +174,6 @@ class ThirdViewController: UIViewController {
         return label
     }()
   
-    
     private let beginButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemPurple
@@ -213,14 +199,10 @@ class ThirdViewController: UIViewController {
         beginButton.frame = CGRect(x:20 , y:thirdLabel.bottom+10, width: view.width-40, height: 52)
         
     }
-    
     @objc private func didTapBeginButton(){
         let loginVC = LoginViewController()
         loginVC.modalPresentationStyle = .fullScreen
         present(loginVC, animated: true, completion: nil)
     }
-    
-    
-    
 }
 

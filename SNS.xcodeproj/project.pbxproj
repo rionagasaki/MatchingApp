@@ -34,6 +34,7 @@
 		5328AD572861954A009E61DB /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD562861954A009E61DB /* CheckViewController.swift */; };
 		5328AD5928623C77009E61DB /* ButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD5828623C77009E61DB /* ButtonAnimation.swift */; };
 		5328AD5B2862486B009E61DB /* PeopleNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5328AD5A2862486B009E61DB /* PeopleNumberViewController.swift */; };
+		533C2D5B287E04D000127370 /* AllUserSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533C2D5A287E04D000127370 /* AllUserSearchViewController.swift */; };
 		5362B59C282766C200E3B8E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5362B59B282766C200E3B8E2 /* AppDelegate.swift */; };
 		5362B59E282766C200E3B8E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5362B59D282766C200E3B8E2 /* SceneDelegate.swift */; };
 		5362B5A0282766C200E3B8E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5362B59F282766C200E3B8E2 /* HomeViewController.swift */; };
@@ -59,6 +60,8 @@
 		5362B5DB2827991A00E3B8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5362B5DA2827991A00E3B8E2 /* StorageManager.swift */; };
 		5362B5DD2827AE8D00E3B8E2 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5362B5DC2827AE8D00E3B8E2 /* Extension.swift */; };
 		536EF079284E0ED600CE6BBF /* Pods_SNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414546E900CC1E3B9D8890A1 /* Pods_SNS.framework */; };
+		53765178287E0B0600074C87 /* SearchCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */; };
+		5376517A287EC03F00074C87 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53765179287EC03F00074C87 /* PasswordChangeViewController.swift */; };
 		538116362830F1030061187F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538116352830F1030061187F /* CollectionViewCell.swift */; };
 		539A7660286F668A00AE4399 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539A765F286F668A00AE4399 /* AccountSettingViewController.swift */; };
 		539A7666286F8E5C00AE4399 /* AccountSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539A7665286F8E5C00AE4399 /* AccountSettingCell.swift */; };
@@ -97,6 +100,7 @@
 		5328AD562861954A009E61DB /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 		5328AD5828623C77009E61DB /* ButtonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAnimation.swift; sourceTree = "<group>"; };
 		5328AD5A2862486B009E61DB /* PeopleNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleNumberViewController.swift; sourceTree = "<group>"; };
+		533C2D5A287E04D000127370 /* AllUserSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUserSearchViewController.swift; sourceTree = "<group>"; };
 		5362B598282766C200E3B8E2 /* SNS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5362B59B282766C200E3B8E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5362B59D282766C200E3B8E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +127,8 @@
 		5362B5D8282798F800E3B8E2 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5362B5DA2827991A00E3B8E2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5362B5DC2827AE8D00E3B8E2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		53765179287EC03F00074C87 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
 		538116352830F1030061187F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		539A765F286F668A00AE4399 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		539A7665286F8E5C00AE4399 /* AccountSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingCell.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 				531940A5287076E900D5299E /* NameChangeViewController.swift */,
 				531940A928718EEB00D5299E /* EmailChangeViewController.swift */,
 				5304E9B92876A5DE004D9ED6 /* AddressChangeViewController.swift */,
+				53765179287EC03F00074C87 /* PasswordChangeViewController.swift */,
 			);
 			name = SettingDetail;
 			sourceTree = "<group>";
@@ -196,6 +203,14 @@
 				5328AD562861954A009E61DB /* CheckViewController.swift */,
 			);
 			name = NewCard;
+			sourceTree = "<group>";
+		};
+		533C2D59287E04AC00127370 /* SearchCategory */ = {
+			isa = PBXGroup;
+			children = (
+				533C2D5A287E04D000127370 /* AllUserSearchViewController.swift */,
+			);
+			name = SearchCategory;
 			sourceTree = "<group>";
 		};
 		5362B58F282766C200E3B8E2 = {
@@ -299,6 +314,8 @@
 				5362B5B5282768AC00E3B8E2 /* ExploreViewController.swift */,
 				5362B5B7282768F800E3B8E2 /* CameraViewController.swift */,
 				53284AE4287C953100FB5882 /* SearchViewController.swift */,
+				53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */,
+				533C2D59287E04AC00127370 /* SearchCategory */,
 				531940AB2871F2E900D5299E /* Chat */,
 				5362B5BB2827691F00E3B8E2 /* ProfileViewController.swift */,
 			);
@@ -481,6 +498,7 @@
 				5362B5B8282768F800E3B8E2 /* CameraViewController.swift in Sources */,
 				538116362830F1030061187F /* CollectionViewCell.swift in Sources */,
 				5328AD512860980F009E61DB /* TagSelectViewController.swift in Sources */,
+				5376517A287EC03F00074C87 /* PasswordChangeViewController.swift in Sources */,
 				5328AD572861954A009E61DB /* CheckViewController.swift in Sources */,
 				5362B5BA2827690D00E3B8E2 /* ChatViewController.swift in Sources */,
 				5362B5DB2827991A00E3B8E2 /* StorageManager.swift in Sources */,
@@ -506,6 +524,8 @@
 				5362B5BC2827691F00E3B8E2 /* ProfileViewController.swift in Sources */,
 				5328AD4D28608E77009E61DB /* EventDetailViewController.swift in Sources */,
 				5362B5B6282768AC00E3B8E2 /* ExploreViewController.swift in Sources */,
+				53765178287E0B0600074C87 /* SearchCategoriesTableViewCell.swift in Sources */,
+				533C2D5B287E04D000127370 /* AllUserSearchViewController.swift in Sources */,
 				5362B5D9282798F800E3B8E2 /* AuthManager.swift in Sources */,
 				531940B22872D3D300D5299E /* MessageTableViewCell.swift in Sources */,
 				5328AD5528617EED009E61DB /* AppealViewController.swift in Sources */,

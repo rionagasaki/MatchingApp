@@ -74,7 +74,6 @@ class SearchViewController: UIViewController, UISearchResultsUpdating,UISearchBa
         navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.searchBar.scopeButtonTitles = ["店名","タグ","ユーザー"]
-        searchListTableView.tableHeaderView = searchController.searchBar
         view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
     }
     

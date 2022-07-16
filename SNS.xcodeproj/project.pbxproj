@@ -62,6 +62,8 @@
 		536EF079284E0ED600CE6BBF /* Pods_SNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414546E900CC1E3B9D8890A1 /* Pods_SNS.framework */; };
 		53765178287E0B0600074C87 /* SearchCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */; };
 		5376517A287EC03F00074C87 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53765179287EC03F00074C87 /* PasswordChangeViewController.swift */; };
+		5376517F2882641B00074C87 /* MyCardsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5376517E2882641B00074C87 /* MyCardsCollectionViewCell.swift */; };
+		53765181288276CF00074C87 /* MyContentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53765180288276CF00074C87 /* MyContentsCollectionViewCell.swift */; };
 		538116362830F1030061187F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538116352830F1030061187F /* CollectionViewCell.swift */; };
 		539A7660286F668A00AE4399 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539A765F286F668A00AE4399 /* AccountSettingViewController.swift */; };
 		539A7666286F8E5C00AE4399 /* AccountSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539A7665286F8E5C00AE4399 /* AccountSettingCell.swift */; };
@@ -129,6 +131,8 @@
 		5362B5DC2827AE8D00E3B8E2 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		53765179287EC03F00074C87 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
+		5376517E2882641B00074C87 /* MyCardsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardsCollectionViewCell.swift; sourceTree = "<group>"; };
+		53765180288276CF00074C87 /* MyContentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		538116352830F1030061187F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		539A765F286F668A00AE4399 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		539A7665286F8E5C00AE4399 /* AccountSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingCell.swift; sourceTree = "<group>"; };
@@ -317,7 +321,7 @@
 				53765177287E0B0600074C87 /* SearchCategoriesTableViewCell.swift */,
 				533C2D59287E04AC00127370 /* SearchCategory */,
 				531940AB2871F2E900D5299E /* Chat */,
-				5362B5BB2827691F00E3B8E2 /* ProfileViewController.swift */,
+				5376517C2882631D00074C87 /* MyProfile */,
 			);
 			name = "Core Tabs";
 			sourceTree = "<group>";
@@ -344,6 +348,24 @@
 				53236DDB282E96FF00A8ADD0 /* IntroduceViewController.swift */,
 			);
 			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		5376517C2882631D00074C87 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5362B5BB2827691F00E3B8E2 /* ProfileViewController.swift */,
+				5376517D288263DC00074C87 /* CustomCellOfCollectionViews */,
+			);
+			name = MyProfile;
+			sourceTree = "<group>";
+		};
+		5376517D288263DC00074C87 /* CustomCellOfCollectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				5376517E2882641B00074C87 /* MyCardsCollectionViewCell.swift */,
+				53765180288276CF00074C87 /* MyContentsCollectionViewCell.swift */,
+			);
+			name = CustomCellOfCollectionViews;
 			sourceTree = "<group>";
 		};
 		539A765E286F666200AE4399 /* AccountSetting */ = {
@@ -482,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5376517F2882641B00074C87 /* MyCardsCollectionViewCell.swift in Sources */,
 				5328AD5928623C77009E61DB /* ButtonAnimation.swift in Sources */,
 				5362B5D128276AB100E3B8E2 /* EventSettingViewController.swift in Sources */,
 				5362B5C7282769F600E3B8E2 /* EditProfileViewController.swift in Sources */,
@@ -507,6 +530,7 @@
 				5362B5DD2827AE8D00E3B8E2 /* Extension.swift in Sources */,
 				5328AD4F2860904F009E61DB /* MapViewController.swift in Sources */,
 				531940A6287076E900D5299E /* NameChangeViewController.swift in Sources */,
+				53765181288276CF00074C87 /* MyContentsCollectionViewCell.swift in Sources */,
 				5362B59C282766C200E3B8E2 /* AppDelegate.swift in Sources */,
 				5362B5CF28276A7100E3B8E2 /* SearchResultViewController.swift in Sources */,
 				5304E9B828736C0C004D9ED6 /* UILabelIndent.swift in Sources */,

@@ -16,20 +16,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private var scrollView: UIScrollView!
     private var pageControl: UIPageControl!
     private var images = [UIImageView]()
+    private var firstCollectionView:UICollectionView?
+    private var secondCollectionView:UICollectionView?
     var collections: [UICollectionView] = []
-    let flowLayout = UICollectionViewFlowLayout()
+    var scrollBeginingPoint: CGPoint!
+    var currentPoint:CGPoint!
+    let firstFlowLayout = UICollectionViewFlowLayout()
+    let secondFlowLayout = UICollectionViewFlowLayout()
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath)
-        cell.frame.size.width = 100
-        cell.frame.size.height = 100
-        return cell
-    }
-
     private let myPage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -50,7 +44,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private let border:UIView = {
        let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
         return view
     }()
     
@@ -116,7 +110,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private let friendItem: UIButton = {
        let button = UIButton()
-        button.setImage(UIImage.resize(image: UIImage(named: "friend")!, width: 25), for: .normal)
+        button.setImage(UIImage.resize(image: UIImage(systemName: "person.2")!.withTintColor(.white), width: 25), for: .normal)
         button.clipsToBounds = true
         return button
     }()
@@ -124,7 +118,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let friendLabel: UILabel = {
         let label = UILabel()
         label.text = "13"
-        
+        label.textColor = .white
         label.font = UIFont(name: "AvenirNext-Medium", size: 15)
         return label
     }()
@@ -163,7 +157,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private let firstImage:UIImageView = {
        let imageView = UIImageView()
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .darkGray
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "square.and.arrow.down")
         return imageView
@@ -171,7 +165,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private let secondImage:UIImageView = {
        let imageView = UIImageView()
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .darkGray
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "person")
         return imageView
@@ -194,7 +188,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 modalViewController.modalPresentationStyle = .fullScreen
                 self.present(modalViewController, animated: true, completion: nil)
             }else{
-                print("logOut Error")
+                print("logout Error")
             }
         }
     }
@@ -209,14 +203,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(setting)
         view.addSubview(messages)
         navigationItem.titleView = myPage
@@ -224,7 +212,46 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(camera)
         view.addSubview(nameLabel)
         view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        pageControl = UIPageControl(frame: .zero)
+        firstFlowLayout.itemSize = CGSize(width: (view.frame.size.width/3)-2, height: (view.frame.size.width/3)-2)
+        secondFlowLayout.itemSize = CGSize(width: (view.frame.size.width/3)-2, height: (view.frame.size.width/3)-2)
+        firstFlowLayout.minimumLineSpacing = 2
+        firstFlowLayout.minimumInteritemSpacing = 1
+        firstFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 1, bottom: 10, right: 1)
+        secondFlowLayout.minimumLineSpacing = 2
+        secondFlowLayout.minimumInteritemSpacing = 1
+        secondFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 1, bottom: 10, right: 1)
+        firstCollectionView = UICollectionView(frame: .zero, collectionViewLayout: firstFlowLayout)
+        secondCollectionView = UICollectionView(frame: .zero, collectionViewLayout: secondFlowLayout)
+        scrollView = UIScrollView(frame: .zero)
+        pageControl.numberOfPages = 2
+        pageControl.pageIndicatorTintColor = UIColor.clear
+        pageControl.currentPageIndicatorTintColor = UIColor.clear
+        view.addSubview(pageControl)
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         
+        guard let firstCollectionView = firstCollectionView else {
+            return
+        }
+        guard let secondCollectionView = secondCollectionView else {
+            return
+        }
+        view.addSubview(scrollView)
+        scrollView.addSubview(firstCollectionView)
+        scrollView.addSubview(secondCollectionView)
+        firstCollectionView.register(MyCardsCollectionViewCell.self, forCellWithReuseIdentifier: MyCardsCollectionViewCell.identifier)
+        secondCollectionView.register(MyContentsCollectionViewCell.self, forCellWithReuseIdentifier: MyContentsCollectionViewCell.identifier)
+        firstCollectionView.delegate = self
+        firstCollectionView.dataSource = self
+        secondCollectionView.delegate = self
+        secondCollectionView.dataSource = self
+        firstCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
+        secondCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         topstackView.addArrangedSubview(addressItem)
         topstackView.addArrangedSubview(addressLabel)
         bottomstackView.addArrangedSubview(friendItem)
@@ -234,6 +261,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         allStackView.addSubview(bottomstackView)
         allStackView.addSubview(topstackView)
         view.addSubview(allStackView)
+        view.addSubview(border)
         setting.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
         messages.addTarget(self, action: #selector(goMessages), for: .touchUpInside)
         camera.addTarget(self, action: #selector(photoAccess), for: .touchUpInside)
@@ -247,8 +275,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @objc private func firstButton(){
-        firstImage.tintColor = .orange
-        secondImage.tintColor = .systemGray5
+        firstImage.tintColor = .white
+        secondImage.tintColor = .darkGray
         pageControl.currentPage = 1
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
@@ -257,8 +285,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @objc private func secondButton(){
-        firstImage.tintColor = .systemGray5
-        secondImage.tintColor = .orange
+        firstImage.tintColor = .darkGray
+        secondImage.tintColor = .white
         pageControl.currentPage = 0
         scrollView.setContentOffset(CGPoint(x: view.frame.width, y: 0), animated: true)
         UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
@@ -275,74 +303,54 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         bottomstackView.frame = CGRect(x: 0, y: topstackView.bottom, width: allStackView.width, height: allStackView.height/2)
         setting.frame = CGRect(x:view.frame.width - 100, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
         messages.frame = CGRect(x:setting.right+20, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
-        flowLayout.itemSize = CGSize(width: 100, height: 100)
-        scrollView = UIScrollView(frame: CGRect(x:0, y: image.bottom+45, width: view.frame.width, height: view.frame.height-image.bottom-10))
+        scrollView.frame = CGRect(x:0, y: image.bottom+45, width: view.frame.width, height: view.frame.height-image.bottom-10)
         scrollView.contentSize = CGSize(width: self.view.frame.size.width*2, height: 200)
-        scrollView.delegate = self
-        scrollView.isPagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.backgroundColor = .orange
-        view.addSubview(scrollView)
-        let firstCollectionView = UICollectionView(frame: CGRect(x:0, y: view.top, width: view.frame.width, height: view.height), collectionViewLayout: flowLayout)
-        let secondCollectionView = UICollectionView(frame: CGRect(x:view.frame.width, y: view.top, width: view.frame.width, height: view.height), collectionViewLayout: flowLayout)
-        scrollView.addSubview(firstCollectionView)
-        scrollView.addSubview(secondCollectionView)
-        firstCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
-        secondCollectionView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
-        firstCollectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
-        secondCollectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifier)
-        collections = [firstCollectionView, secondCollectionView]
-        
-        firstCollectionView.delegate = self
-        firstCollectionView.dataSource = self
-        secondCollectionView.delegate = self
-        secondCollectionView.dataSource = self
-        pageControl = UIPageControl(frame: CGRect(x: 0, y: image.bottom+10, width: self.view.frame.size.width, height: 30))
-        pageControl.numberOfPages = 2
-        pageControl.pageIndicatorTintColor = UIColor.clear
-        pageControl.currentPageIndicatorTintColor = UIColor.clear
-        view.addSubview(pageControl)
+        firstCollectionView!.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
+        secondCollectionView!.frame = CGRect(x: view.width, y: 0, width: view.width, height: view.height)
+        pageControl.frame = CGRect(x: 0, y: image.bottom+10, width: self.view.frame.size.width, height: 30)
         view.addSubview(firstImage)
         view.addSubview(secondImage)
-        firstImage.frame = CGRect(x: 0, y: image.bottom+10, width: view.frame.width/2, height: 30)
-        secondImage.frame = CGRect(x: firstImage.right, y: image.bottom+10, width: view.frame.width/2, height: 30)
-        images = [firstImage, secondImage]
-        images[pageControl.currentPage].tintColor = .orange
         firstImage.isUserInteractionEnabled = true
         secondImage.isUserInteractionEnabled = true
+        firstImage.frame = CGRect(x: 0, y: image.bottom+10, width: view.frame.width/2, height: 30)
+        secondImage.frame = CGRect(x: firstImage.right, y: image.bottom+10, width: view.frame.width/2, height: 30)
         firstImage.addGestureRecognizer(UITapGestureRecognizer(
             target: self,
             action: #selector(firstButton)))
         secondImage.addGestureRecognizer(UITapGestureRecognizer(
             target: self,
             action: #selector(secondButton)))
-        view.addSubview(border)
         border.frame = CGRect(x: 0, y: firstImage.bottom+5, width: view.frame.width/2, height: 2)
+        images = [firstImage, secondImage]
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if images[pageControl.currentPage] == firstImage{
-            secondImage.tintColor = .systemGray5
+            secondImage.tintColor = .darkGray
         }else if images[pageControl.currentPage] == secondImage{
-            firstImage.tintColor = .systemGray5
+            firstImage.tintColor = .darkGray
         }
     }
-}
-
-class PostView: UICollectionView ,UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        if collectionView == firstCollectionView {
+            return 30
+        }else{
+            return 20
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:CollectionViewCell.identifier, for: indexPath)
-        collectionView.backgroundColor = .black
-        return cell
+        if collectionView == firstCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCardsCollectionViewCell.identifier, for: indexPath)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyContentsCollectionViewCell.identifier, for: indexPath)
+            return cell
+        }
     }
 }
-
 extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     @objc func photoAccess(){
@@ -401,26 +409,36 @@ extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationCon
 }
 
 extension ProfileViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            scrollBeginingPoint = scrollView.contentOffset
+        }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        currentPoint = scrollView.contentOffset
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print(scrollBeginingPoint.x > currentPoint.x)
         if pageControl.currentPage == 0 {
-            print("aa")
-            images[0].tintColor = .orange
-            images[1].tintColor = .systemGray5
+            if scrollBeginingPoint.x > currentPoint.x{
+                return
+            }
+            images[0].tintColor = .white
+            images[1].tintColor = .darkGray
             UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
                 self.border.frame = CGRect(x: 0, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
             }
-        }else{
-            images[0].tintColor = .systemGray5
-            images[1].tintColor = .orange
+        }else if pageControl.currentPage != 0 && scrollBeginingPoint.x > currentPoint.x {
+            if scrollBeginingPoint.x > currentPoint.x {
+                return
+            }
+            images[0].tintColor = .darkGray
+            images[1].tintColor = .white
             UIView.animate(withDuration: 0.18, delay: 0, options: .curveEaseIn) {
                 self.border.frame = CGRect(x: self.view.frame.width/2, y: self.firstImage.bottom+5, width: self.view.frame.width/2, height: 2)
             }
         }
     }
 }
-
-

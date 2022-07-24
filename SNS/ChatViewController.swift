@@ -47,7 +47,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("1-2")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as?
         ChatTableViewCell else {
             return UITableViewCell()
@@ -55,7 +54,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
         cell.tintColor = .white
-        print(indexPath.row, "index")
         let model = self.AllChat[indexPath.row]
         cell.configure(with: model)
             
@@ -97,7 +95,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             if querySnapshot?.isEmpty == true { return }
             for document in querySnapshot!.documents{
                 let userData = userData(document: document)
-                self.configure(title: userData.username ?? "", groupIcon: UIImage().getImageByUrl(url: userData.profileImage ?? ""))
+                self.configure(title: userData.username ?? "", groupIcon: UIImage.getImageByUrl(url: userData.profileImage ?? ""))
                 self.chatTableView.reloadData()
             }
         }

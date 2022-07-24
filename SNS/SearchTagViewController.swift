@@ -1,15 +1,15 @@
 //
-//  AllUserSearchViewController.swift
+//  SearchTagViewController.swift
 //  SNS
 //
-//  Created by Rio Nagasaki on 2022/07/13.
+//  Created by Rio Nagasaki on 2022/07/19.
 //
 
 import UIKit
 import InstantSearchClient
 import AlgoliaSearchClient
 
-class AllUserSearchViewController: UIViewController,UISearchBarDelegate {
+class SearchTagViewController: UIViewController,UISearchBarDelegate {
     
     private let searchController = UISearchController()
     private var searchResults = [SearchResult]()
@@ -24,7 +24,7 @@ class AllUserSearchViewController: UIViewController,UISearchBarDelegate {
         super.viewDidLoad()
         view.addSubview(resultTableView)
         view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
-        navigationItem.title = "全ユーザー検索"
+        navigationItem.title = "タグ検索"
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationController!.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
@@ -76,7 +76,7 @@ class AllUserSearchViewController: UIViewController,UISearchBarDelegate {
     }
 }
 
-extension AllUserSearchViewController: UITableViewDelegate,UITableViewDataSource{
+extension SearchTagViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }

@@ -299,7 +299,7 @@ class CardView: UIView {
     private func configure(with model:cardData){
         ownerName.text = model.ownerName
         eventName.text = model.eventTitle
-        cardImageView.image = UIImage().getImageByUrl(url: model.eventImageURL!)
+        cardImageView.image = UIImage.getImageByUrl(url: model.eventImageURL!)
         for tagName in model.tagName {
             
             tagLabel.frame = CGRect(x: eventName.left, y: eventName.bottom+10, width: tagLabel.intrinsicContentSize.width, height: tagLabel.intrinsicContentSize.height)

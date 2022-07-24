@@ -76,7 +76,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func send(){
         if inputTextView.text == "" { return }
-        Messages.append(Message(message: inputTextView.text, profileIcon: UIImage().getImageByUrl(url: ""), talker: ""))
+        Messages.append(Message(message: inputTextView.text, profileIcon: UIImage.getImageByUrl(url: ""), talker: ""))
         tableView.reloadData()
         inputTextView.text = ""
     }

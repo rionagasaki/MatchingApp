@@ -369,6 +369,7 @@ PODS:
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.12)
   - SkeletonView (1.29.2)
+  - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - AlgoliaSearchClient
@@ -386,6 +387,7 @@ DEPENDENCIES:
   - MessageInputBar
   - MessageKit
   - SkeletonView
+  - SwiftyJSON
 
 SPEC REPOS:
   trunk:
@@ -421,6 +423,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SkeletonView
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -455,7 +458,8 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: c98abec251c1e857332f429fd153919206de20d3
+PODFILE CHECKSUM: cc8683d53f3397be3a9f9c9f976b911b8f437a36
 
 COCOAPODS: 1.11.3

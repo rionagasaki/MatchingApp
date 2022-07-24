@@ -182,7 +182,7 @@ class LoginViewController: UIViewController {
            name = usernameEmail
         }
         print("password",password)
-        AuthManager.shared.loginUser(username: name, email: email, passowrd: password){ result in
+        AuthManager.shared.loginUser(username: name, email: email, passowrd: password){ [unowned self] result in
             DispatchQueue.main.async {
                 if result{
                     self.dismiss(animated: true, completion: nil)

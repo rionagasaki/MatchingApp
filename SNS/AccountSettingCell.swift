@@ -50,6 +50,7 @@ class AccountSettingCell: UITableViewCell {
         
         required init?(coder: NSCoder) {
             fatalError()
+
         }
         
         override func layoutSubviews() {

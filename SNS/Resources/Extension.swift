@@ -41,7 +41,7 @@ extension UIImage {
         return resizedImage!
     }
     
-    public func getImageByUrl(url: String) -> UIImage{
+    public static func getImageByUrl(url: String) -> UIImage{
         guard let url = URL(string: url) else { return (UIImage(systemName: "person.fill")?.withTintColor(.darkGray))! }
         do {
             let data = try Data(contentsOf: url)

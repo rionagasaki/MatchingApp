@@ -1,8 +1,8 @@
 //
-//  ProfileViewController.swift
+//  UserProfileViewController.swift
 //  SNS
 //
-//  Created by Rio Nagasaki on 2022/05/08.
+//  Created by Rio Nagasaki on 2022/07/17.
 //
 
 import UIKit
@@ -12,12 +12,13 @@ import FirebaseStorage
 import KRProgressHUD
 import SkeletonView
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class UserProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     private var scrollView: UIScrollView!
     private var pageControl: UIPageControl!
     private var images = [UIImageView]()
     private var firstCollectionView:UICollectionView?
     private var secondCollectionView:UICollectionView?
+    private var follow:Bool!
     var collections: [UICollectionView] = []
     var scrollBeginingPoint: CGPoint!
     var currentPoint:CGPoint!
@@ -83,8 +84,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let setting: UIButton = {
        let button = UIButton()
         button.backgroundColor = .white
-        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
-        button.tintColor = .systemOrange
+        button.setTitle("フォロー", for: .normal)
+        button.setTitleColor(UIColor.systemOrange, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.textAlignment = .center
         button.clipsToBounds = true
         button.layer.cornerRadius = 15
        return button
@@ -172,12 +175,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }()
    
     @objc private func goSetting(){
-        let modalViewController = AccountSettingViewController()
-        self.navigationController?.pushViewController(modalViewController, animated: true)
+        if follow {
+            setting.backgroundColor = .white
+            setting.setTitle("フォロー", for: .normal)
+            setting.setTitleColor(UIColor.systemOrange, for: .normal)
+            follow = false
+        }else{
+            setting.backgroundColor = .systemOrange
+            setting.setTitle("フォロー中", for: .normal)
+            setting.setTitleColor(UIColor.white, for: .normal)
+            follow = true
+        }
     }
     
     @objc private func goMessages(){
-        let modalViewController = ChatViewController()
+        let modalViewController = MessageViewController()
         self.navigationController?.pushViewController(modalViewController, animated: true)
     }
     
@@ -233,7 +245,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
-        
+        follow = false
         guard let firstCollectionView = firstCollectionView else {
             return
         }
@@ -300,7 +312,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         allStackView.frame = CGRect(x: view.width-200, y: nameLabel.bottom+5, width: 150, height: 70)
         topstackView.frame = CGRect(x: 0, y: 0, width: allStackView.width, height: allStackView.height/2)
         bottomstackView.frame = CGRect(x: 0, y: topstackView.bottom, width: allStackView.width, height: allStackView.height/2)
-        setting.frame = CGRect(x:view.frame.width - 100, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
+        setting.frame = CGRect(x:view.frame.width - 150, y:view.safeAreaInsets.bottom+20, width: setting.intrinsicContentSize.width+30, height: setting.intrinsicContentSize.height)
         messages.frame = CGRect(x:setting.right+20, y:view.safeAreaInsets.bottom+20, width: 30, height: 30)
         scrollView.frame = CGRect(x:0, y: image.bottom+45, width: view.frame.width, height: view.frame.height-image.bottom-10)
         scrollView.contentSize = CGSize(width: self.view.frame.size.width*2, height: 200)
@@ -350,7 +362,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
 }
-extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+extension UserProfileViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     @objc func photoAccess(){
         KRProgressHUD.show(withMessage: "Loading...", completion: nil)
@@ -407,7 +419,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate,UINavigationCon
     }
 }
 
-extension ProfileViewController: UIScrollViewDelegate {
+extension UserProfileViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
             scrollBeginingPoint = scrollView.contentOffset

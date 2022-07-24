@@ -8,8 +8,14 @@
 import UIKit
 import FirebaseAuth
 
-class ExploreViewController: UIViewController {
+struct Reccomend {
+    let text:String
+    let imageName:String
+}
 
+class ExploreViewController: UIViewController {
+    
+    private let reccomends = [Reccomend]()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -29,16 +35,23 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.rgb(r: 51, g: 51, b: 51)
-        view.addSubview(imageView)
-        view.addSubview(makeCardButton)
-        view.addSubview(mainImage)
+        view.backgroundColor = .white
+//        view.addSubview(imageView)
+//        view.addSubview(makeCardButton)
+//        view.addSubview(mainImage)
+        navigationItem.title = "レコメンド"
+        view.addSubview(reccomendTableView)
+        reccomendTableView.backgroundColor = .orange
         makeCardButton.addTarget(self, action: #selector(newCard), for: .touchUpInside)
+        reccomendTableView.register(HomeReccomendTableViewCell.self, forCellReuseIdentifier: HomeReccomendTableViewCell.identifier)
+        reccomendTableView.delegate = self
+        reccomendTableView.dataSource = self
+        configure()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-       
+        reccomendTableView.frame = CGRect(x: 0, y: view.safeAreaInsets.bottom, width: view.frame.size.width, height: view.frame.height)
         mainImage.frame = CGRect(x: 30, y: view.frame.height/10, width: view.frame.width-50, height: view.frame.height-view.frame.height/2)
         imageView.frame = CGRect(x:(view.frame.width/2)-150, y: mainImage.bottom+10, width: 300, height: 50)
         makeCardButton.frame = CGRect(x: (view.frame.width/2)-150, y: imageView.bottom+20, width: 300, height: 60)
@@ -51,6 +64,9 @@ class ExploreViewController: UIViewController {
         makeCardButton.layer.insertSublayer(gradientLayer, at:0)
     }
     
+    private func configure(){
+        
+    }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -84,4 +100,25 @@ class ExploreViewController: UIViewController {
         
         self.present(modalViewController, animated: true, completion: nil)
     }
+    
+    private let reccomendTableView:UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
 }
+extension ExploreViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reccomends.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeReccomendTableViewCell.identifier, for: indexPath) as! HomeReccomendTableViewCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
+    }
+    
+}
+

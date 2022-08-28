@@ -1,3 +1,3 @@
 # MatchingApp
 
-UIKit + RxSwift +　Rxdux
+UIKit + RxSwift + Redux
